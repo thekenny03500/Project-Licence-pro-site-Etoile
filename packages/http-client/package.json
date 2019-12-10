@@ -1,0 +1,7 @@
+{
+    "name": "licpro-http-client",
+    "description": "client http",
+    "version": "0.0.1",
+    "dependencies": {
+    }
+  }
