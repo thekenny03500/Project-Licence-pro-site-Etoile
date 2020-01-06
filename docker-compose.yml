@@ -1,0 +1,43 @@
+version: "3.7"
+services:
+    proxy:
+        build: .dont_touch/docker/proxy
+        ports:
+            - "${PROJECT_PROXY_PORT}:80"
+        networks: 
+            - main
+        volumes:
+            - ./sandbox-fetch:/var/www/sandbox-fetch
+    fake:
+        build: .dont_touch/docker/fackit
+        volumes:
+            - type: volume
+              source: spec-volume
+              target: /var/www/app/spec
+        networks: 
+            - main
+    spec:
+        build: .dont_touch/docker/spec_api
+        volumes:
+            - type: volume
+              source: spec-volume
+              target: /var/www/app/spec
+        networks: 
+            - main
+    gen_spec:
+        build: 
+            dockerfile: Dockerfile
+            args:
+                PROJECT_PART: ${PROJECT_PART}
+            context: .dont_touch/docker/gen_spec/
+        volumes:
+            - type: volume
+              source: spec-volume
+              target: /var/www/spec
+
+volumes:
+    spec-volume:
+
+networks:
+    main:
+        driver: bridge

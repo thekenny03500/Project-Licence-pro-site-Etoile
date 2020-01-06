@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "redoc": "2.0.0-rc.20",
+        "http-server": "0.12.0"
+    }
+
+}
