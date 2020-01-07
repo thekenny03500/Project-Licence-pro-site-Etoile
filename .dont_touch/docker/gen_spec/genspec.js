@@ -18,6 +18,276 @@ const all = {
                 type: "integer"
             }
         ]
+    },
+    cheeses: {
+        singleName:"Cheese",
+        multiName: "Chesses",
+        properties: [
+            {
+                name: "country",
+                type: "string",
+            },
+            {
+                name: "milk",
+                type: "string",
+            },
+            {
+                name: "intensity",
+                type: "integer"
+            }
+        ]
+    },
+    beers: {
+        singleName:"Beer",
+        multiName: "Beers",
+        properties: [
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "color",
+                type: "string",
+            },
+            {
+                name: "alcoholDegree",
+                type: "float"
+            }
+        ]
+    },
+    books: {
+        singleName:"Book",
+        multiName: "Books",
+        properties: [
+            {
+                name: "title",
+                type: "string",
+            },
+            {
+                name: "isbn",
+                type: "string",
+            },
+            {
+                name: "year",
+                type: "integer"
+            }
+        ]
+    },
+    coffees: {
+        singleName:"Coffee",
+        multiName: "Coffees",
+        properties: [
+            {
+                name: "variety",
+                type: "string",
+            },
+            {
+                name: "roastingDegree",
+                type: "string",
+            },
+            {
+                name: "price",
+                type: "float"
+            }
+        ]
+    },
+    coins: {
+        singleName:"Coin",
+        multiName: "Copins",
+        properties: [
+            {
+                name: "city",
+                type: "string",
+            },
+            {
+                name: "monument",
+                type: "string",
+            },
+            {
+                name: "year",
+                type: "integer"
+            }
+        ]
+    },
+    linux: {
+        singleName:"Linux",
+        multiName: "Linuxs",
+        properties: [
+            {
+                name: "base",
+                type: "string",
+            },
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "version",
+                type: "string"
+            }
+        ]
+    },
+    cities: {
+        singleName:"City",
+        multiName: "Cities",
+        properties: [
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "country",
+                type: "string",
+            },
+            {
+                name: "population",
+                type: "integer"
+            }
+        ]
+    },
+    candies: {
+        singleName:"Candy",
+        multiName: "Candies",
+        properties: [
+            {
+                name: "brand",
+                type: "string",
+            },
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "sugar",
+                type: "float"
+            }
+        ]
+    },
+    cve: {
+        singleName:"CVE",
+        multiName: "CVEs",
+        properties: [
+            {
+                name: "code",
+                type: "string",
+            },
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "criticality",
+                type: "integer"
+            }
+        ]
+    },
+    newspapers: {
+        singleName:"Newspaper",
+        multiName: "Newspapers",
+        properties: [
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "country",
+                type: "string",
+            },
+            {
+                name: "price",
+                type: "float"
+            }
+        ]
+    },
+    stars: {
+        singleName:"Star",
+        multiName: "Stars",
+        properties: [
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "galaxy",
+                type: "string",
+            },
+            {
+                name: "distance",
+                type: "float"
+            }
+        ]
+    },
+    games: {
+        singleName:"Game",
+        multiName: "Games",
+        properties: [
+            {
+                name: "title",
+                type: "string",
+            },
+            {
+                name: "category",
+                type: "string",
+            },
+            {
+                name: "review",
+                type: "float"
+            }
+        ]
+    },
+    trees: {
+        singleName:"Tree",
+        multiName: "Trees",
+        properties: [
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "species",
+                type: "string",
+            },
+            {
+                name: "lifeExpectancy",
+                type: "integer"
+            }
+        ]
+    },
+    cars: {
+        singleName:"Tree",
+        multiName: "Trees",
+        properties: [
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "fuelType",
+                type: "string",
+            },
+            {
+                name: "year",
+                type: "integer"
+            }
+        ]
+    },
+    rockets: {
+        singleName:"Rocket",
+        multiName: "Rockets",
+        properties: [
+            {
+                name: "name",
+                type: "string",
+            },
+            {
+                name: "country",
+                type: "string",
+            },
+            {
+                name: "takeOffThrust ",
+                type: "integer"
+            }
+        ]
     }
 };
 
