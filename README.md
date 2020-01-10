@@ -55,7 +55,11 @@ Une spec openapi permet de décrire votre api rest. C'est un format standadisé.
 
 Ce serveur utilise la lib [fakeit](https://github.com/JustinFeng/fakeit)
 
-L'objectif est d'implementer les appels fetch dans le fichier ``sandbox-fetch/index.html``. Vous pouvez tester via l'url ``http://localhost:5080/sandbox-fetch``
+Vous devez implementer les methods pour faire les differents appel d'API avec fetch dans le dossier ``packages/http-client``. Vous avez des exemples de test à completer. 
+
+Pour accéder à node dans le container vous pouvez lancer la commande ``docker-compose run client /bin/bash``
+
+Vous pouvez tester via l'url ``http://localhost:5080/sandbox-fetch``
 
 ### Backend
 

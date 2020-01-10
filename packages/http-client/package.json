@@ -3,5 +3,17 @@
     "description": "client http",
     "version": "0.0.1",
     "dependencies": {
+    },
+    "devDependencies": {
+      "chai": "4.2.0",
+      "chai-fetch": "0.3.1",
+      "mockttp": "0.19.2",
+      "mocha": "6.2.2",
+      "node-fetch": "2.6.0",
+      "fetch-mock": "8.3.1"
+    },
+    "main": "./lib/client.js",
+    "scripts": {
+      "tests": "./node_modules/mocha/bin/mocha lib/tests/"
     }
   }
