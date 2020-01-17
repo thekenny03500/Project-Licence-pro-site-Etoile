@@ -1,3 +1,5 @@
+const star = require('./model/Star');
+
 module.exports = function(host, port) {
     
     function getAll() {
@@ -9,8 +11,8 @@ module.exports = function(host, port) {
                 .catch(reject)
         });
     }
-
-    function getInfo(idStar) {
+  
+      function getInfo(idStar) {
         return new Promise((resolve, reject) => {
             fetch(`http://${host}:${port}/api/stars/${idStar}`)
                 .then((response) => {
@@ -20,14 +22,16 @@ module.exports = function(host, port) {
         });
     }
 
-    function add() {
-        return new Promise((resolve, reject) => {
-            fetch('http://localhost:7890/api/stars', {
-            method: 'post',
-            body: JSON.stringify({eee: "uuuuu"})
-        }).then(resolve).catch(reject)
+    function add(name, galaxy, distance) {
+        let starToAdd = new star(name, galaxy, distance);
+              return new Promise((resolve, reject) => {
+            fetch(`http://${host}:${port}/api/stars`, {
+                method: 'post',
+                body: JSON.stringify(starToAdd)
+            }).then(resolve).catch(reject)
         });
     }
+  
 
     return {
         getAll: getAll,

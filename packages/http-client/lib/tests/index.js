@@ -6,7 +6,8 @@ global.fetch = fetch;
 const chaiFetch = require('chai-fetch');
 chai.use(chaiFetch);
 
-const httpclient = require('../client')
+const httpclient = require('../client');
+const star = require('../model/Star');
 
 const { expect } = chai;
 
@@ -36,12 +37,17 @@ describe('Test API', () => {
     });
 
     describe('Test Post', () => {
-        it('test /', async () => {
-            fetchMock.post(`http://localhost:7890/api/stars`, {eeee: "tttt"});
+        let aStar = new star("All Passion Spent","Little Hands Clapping",null);
+        it('test / add', async () => {
+            fetchMock.post(`http://localhost:7890/api/stars`, {"id":"cd5b95b2-fb42-4b23-b8e7-6dd8a03e19ae","name":"All Passion Spent","galaxy":"Little Hands Clapping","distance":null});
             const client = httpclient('localhost', 7890);
-            client.add().then((changes) => {
+            client.add(aStar.name,aStar.galaxy,aStar.distance).then((changes) => {
+                changes.json().then((body)=>{
+                    expect(body.id).not.to.eql(null);
+                });
                 const request = fetchMock.lastCall()[1];
                 expect(request.method).equal('post');
+                expect(request.body).equal(JSON.stringify(aStar));
             })
         });
     });
