@@ -26,14 +26,14 @@ describe('Test API', () => {
                 expect(changes).to.eql(listeStar);
             })
         });
-     /*   it('test / getInfo', async () => {
+        it('test / getInfo', async () => {
             const star = listeStar[0];
             fetchMock.get(`http://localhost:7890/api/stars/`+star.id,star );
             const client = httpclient('localhost', 7890);
             client.getInfo(star.id).then((changes)=>{
                 expect(changes).to.eql(star);
             });
-        });*/
+        });
     });
 
     describe('Test Post', () => {
