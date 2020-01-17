@@ -9,6 +9,17 @@ module.exports = function(host, port) {
                 .catch(reject)
         });
     }
+
+    function getInfo(idStar) {
+        return new Promise((resolve, reject) => {
+            fetch(`http://${host}:${port}/api/stars/${idStar}`)
+                .then((response) => {
+                    resolve(response.json());
+                })
+                .catch(reject)
+        });
+    }
+
     function add() {
         return new Promise((resolve, reject) => {
             fetch('http://localhost:7890/api/stars', {
@@ -17,8 +28,10 @@ module.exports = function(host, port) {
         }).then(resolve).catch(reject)
         });
     }
+
     return {
         getAll: getAll,
+        getInfo: getInfo,
         add: add
     }
 }
