@@ -10,6 +10,8 @@ RUN mkdir -p /var/www/app
 
 RUN mkdir -p /var/www/spec
 
+RUN mkdir -p /var/www/sql
+
 RUN cd /var/www/app
 
 COPY ./genspec.js /var/www/app/genspec.js
