@@ -65,6 +65,26 @@ Vous pouvez tester via l'url ``http://localhost:5080/sandbox-fetch``
 
 Vous allez implementer le backend de votre micro service avec Express. Vous allez devoir respecter la specification openapi.
 
+Vous avez 3 containers à votre disposition.
+
+#### backend
+
+C'est un container avec node qui a un volume mappé sur le dossier `backend`
+Le container execute **forever** qui est une application node qui relance un script si il y a des moddification. 
+
+Pour tester http://localhost:5080/api/database/test/
+
+#### database
+
+C'est un container avec postgresql 12.1. Les paramètres de connection sont 
+* **user**: db_user
+* **password**: db_password
+* **dbname**: db_db
+
+#### dba 
+
+C'est une application qui permet de visualiser votre base de donnée. Pour y accéder http://localhost:5080/dba
+
 ### Front 
 
 Vous aller implementer le backend de votre front avcec React.

@@ -34,13 +34,41 @@ services:
             - type: volume
               source: spec-volume
               target: /var/www/spec
+            - type: volume
+              source: sql-script-volume
+              target: /var/www/sql
     client: 
         build: .dont_touch/docker/client
         volumes:
             - ./packages/http-client:/var/www/app
+    backend:
+        build: .dont_touch/docker/backend
+        volumes: 
+            - ./backend/:/var/www/app
+        networks: 
+            - main
+    database:
+        build: .dont_touch/docker/database
+        environment: 
+            POSTGRES_USER: db_user
+            POSTGRES_DB: db_db
+            POSTGRES_PASSWORD: db_password
+        networks: 
+            - main
+        volumes: 
+            - type: volume
+              source: sql-script-volume
+              target: /docker-entrypoint-initdb.d
+    dba:
+        build: .dont_touch/docker/dba
+        networks: 
+            - main
+        environment: 
+            ADMINER_DEFAULT_SERVER: database
 
 volumes:
     spec-volume:
+    sql-script-volume:
 
 networks:
     main:

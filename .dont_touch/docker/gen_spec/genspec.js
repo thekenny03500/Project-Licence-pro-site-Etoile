@@ -480,6 +480,21 @@ function generate(part) {
 
 writeFileSync('/var/www/spec/spec.json', spec)
 
+const sql = `
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE ${part} (
+    id              uuid CONSTRAINT firstkey PRIMARY KEY
+    ${all[part].properties.reduce((value, property, index) => {
+        return `${value},
+${property.name}    ${ property.type = 'string' ? 'varchar(250)': property.type }  NOT NULL
+        `
+    }, "")}
+);
+`
+
+writeFileSync('/var/www/sql/db.sql', sql)
+
 }
 
 generate(process.env.PROJECT_PART);

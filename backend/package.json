@@ -1,0 +1,13 @@
+{
+    "dependencies": {
+        "express": "^4.17.1",
+        "morgan": "1.9.1",
+        "pg": "^7.17.1"
+    },
+    "devDependencies": {
+        "forever": "2.0.0"
+    },
+    "scripts": {
+        "start": "node_modules/forever/bin/forever -t --w bin/index.js"
+    }
+}
