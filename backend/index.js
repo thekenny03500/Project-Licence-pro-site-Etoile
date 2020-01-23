@@ -68,7 +68,7 @@ app.get('/api/stars/:id', (req, res) => {
             }).catch(err => {
                 console.error(err.stack);
                 res.status(500);
-            })
+            });
     }
 });
 
@@ -107,6 +107,39 @@ app.post('/api/stars', (req, res) => {
     }
 });
 
+// ************** //
+// DelStar Delete //
+// ************** //
+// Delete a star in database
+app.delete('/api/stars/:id',(req,res)=>{
+    if(!validator.isUUID(req.params.id))
+    {
+        res.status(400).send('UUID Incorrect');
+    }
+    else
+    {
+        const pool = new Pool(poolLogin);
 
+        const query = {
+            text: 'DELETE FROM stars WHERE id=$1;',
+            values: [req.params.id],
+        }
+
+        console.log(req.params.id);
+        pool.query(query)
+            .then(result => {
+                pool.end();
+                if(result.rowCount <1)
+                    res.status(404).send('Not found');
+                else
+                {
+                    res.status(204).send('Delete complete');
+                }
+            }).catch(err => {
+                console.error(err.stack);
+                res.status(500);
+            })
+    }
+});
 
 module.exports = app;
