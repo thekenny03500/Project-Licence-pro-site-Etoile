@@ -27,6 +27,10 @@ module.exports = function(host, port) {
               return new Promise((resolve, reject) => {
             fetch(`http://${host}:${port}/api/stars`, {
                 method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(starToAdd)
             })
             .then((response) =>{
