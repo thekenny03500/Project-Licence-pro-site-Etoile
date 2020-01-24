@@ -15,8 +15,13 @@ module.exports = function(host, port) {
       function getInfo(idStar) {
         return new Promise((resolve, reject) => {
             fetch(`http://${host}:${port}/api/stars/${idStar}`)
-                .then((response) => {
-                    resolve(response.json());
+                .then((result) => {
+                    if(result.status == 200){
+                        resolve(result.json());
+                    }
+                    else{
+                        resolve(result.status);
+                    }
                 })
                 .catch(reject)
         });
@@ -39,11 +44,28 @@ module.exports = function(host, port) {
             .catch(reject);
         });
     }
-  
 
+    function deleteOnce(id){ 
+        return new Promise((resolve, reject) => {
+            fetch(`http://${host}:${port}/api/stars/${id}`, {
+                method: 'delete'
+            })
+            .then((result) => {
+                if(result.status == 204){
+                    resolve(true);
+                }
+                else{
+                    resolve(false);
+                }
+            })
+            .catch(reject);
+        })
+    }
+    
     return {
         getAll: getAll,
         getInfo: getInfo,
-        add: add
+        add: add,
+        deleteOnce: deleteOnce
     }
 }
