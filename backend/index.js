@@ -81,7 +81,7 @@ app.post("/api/stars", (req, res) => {
     if(newStar
     && newStar.name
     && newStar.galaxy
-    && newStar.distance)
+    && validator.isFloat(newStar.distance))
     {
         const pool = new Pool(poolLogin);
         const uuid = uuidv1();
@@ -150,7 +150,7 @@ app.put("/api/stars/:id",(req,res)=>{
     let newStar = req.body;
     if(newStar
     && validator.isUUID(req.params.id)
-    && (newStar.name || newStar.galaxy || newStar.distance))
+    && (newStar.name || newStar.galaxy || validator.isFloat(newStar.distance)))
     {
         const pool = new Pool(poolLogin);
 
