@@ -5,6 +5,8 @@ const uuidv1 = require('uuid/v1');
 
 const { Pool } = require('pg');
 const validator = require('validator');
+const OpenApiValidator = require('express-openapi-validator').OpenApiValidator;
+//TODO express-openapi-validator MIDDELWARE
 
 const app = express();
 const poolLogin = {
@@ -14,6 +16,9 @@ const poolLogin = {
             password: 'db_password'
           };
 
+// ********** //
+// MIDDELWARE //
+// ********** //
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
