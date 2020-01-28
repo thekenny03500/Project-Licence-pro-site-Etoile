@@ -16,11 +16,11 @@ module.exports = function(host, port) {
         return new Promise((resolve, reject) => {
             fetch(`http://${host}:${port}/api/stars/${idStar}`)
                 .then((result) => {
-                    if(result.status == 200){
+                    if(result.status === 200){
                         resolve(result.json());
                     }
                     else{
-                        resolve(result.status);
+                        resolve("GET : Bad request, id star does not exists");
                     }
                 })
                 .catch(reject)
@@ -39,7 +39,15 @@ module.exports = function(host, port) {
                 body: JSON.stringify(starToAdd)
             })
             .then((response) =>{
-                resolve(response.json());
+                if(response.status === 200){
+                    resolve(response.json());
+                }
+                else{
+                    reject( {
+                        name:        "FailAddException",
+                        message:     "Bad request, fail to add star",
+                    });
+                }
             })
             .catch(reject);
         });
@@ -51,14 +59,36 @@ module.exports = function(host, port) {
                 method: 'delete'
             })
             .then((result) => {
-                if(result.status == 204){
-                    resolve(true);
+                if(result.status === 204){
+                    resolve("DELETE : '" + id + "' has been deleted");
                 }
-                else{
-                    resolve(false);
+                else if(result.status === 400){
+                    reject("DELETE : Bad request, please verify attributes and id of star");
+                }
+                else{ // 404
+                    reject("DELETE : Bad request, star id does not exists");
                 }
             })
             .catch(reject);
+        })
+    }
+
+    function put(selectedStar){
+        return new Promise((resolve, reject) => {
+            fetch(`http://${host}:${port}/api/stars/${selectedStar.id}`, {
+                method: 'put'
+            })
+            .then((result) => {
+                if(result.status === 200){
+                    resolve("PUT : '" + selectedStar.id + "' has been changed");
+                }
+                else if (result.status === 400){
+                    reject("PUT : Bad request, please verify attributes and id of star");
+                }
+                else{ // 404
+                    reject("PUT : Bad request, id star does not exists");
+                }
+            })
         })
     }
     
@@ -66,6 +96,7 @@ module.exports = function(host, port) {
         getAll: getAll,
         getInfo: getInfo,
         add: add,
-        deleteOnce: deleteOnce
+        deleteOnce: deleteOnce,
+        put: put
     }
 }

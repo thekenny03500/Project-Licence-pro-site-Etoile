@@ -103,6 +103,7 @@ app.post("/api/stars", (req, res) => {
     }
     else
     {
+        console.log(newStar);
         res.status(400).send("invalid request");
     }
 });
