@@ -1,4 +1,4 @@
-FROM node:13.0 
+FROM node:13.7
 
 RUN mkdir -p /var/www/app
 
