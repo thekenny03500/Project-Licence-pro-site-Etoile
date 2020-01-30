@@ -42,8 +42,10 @@ describe('Test API', () => {
         });
         it('test / getInfoByIdDoesNotExists', (done) => {
             fetchMock.get(`http://localhost:7890/api/stars/`+ star2.id, 404);
-            client.getInfo(star2.id).then((result) => {
-                expect(result).to.eql("GET : Bad request, id star does not exists");
+            client.getInfo(star2.id).catch((result) => {
+                //expect(result).to.eql("GET : Bad request, id star does not exists");
+                expect(result.statusCode).eql(404);
+                expect(result.message).eql("Bad request, id star does not exists");
                 done();
             })
         });
@@ -74,7 +76,7 @@ describe('Test API', () => {
             let badStar = new star("myName", "myGalaxy", null);
             fetchMock.post(`http://localhost:7890/api/stars`, 400);
             client.add(starToAdd.name,starToAdd.galaxy,starToAdd.distance).catch((result) => {
-                expect(result.name).eql("FailAddException");
+                expect(result.statusCode).eql(400);
                 expect(result.message).eql("Bad request, fail to add star");
 
                 const request = fetchMock.lastCall()[1];
@@ -97,14 +99,16 @@ describe('Test API', () => {
         it("test / deleteOnceByIdDoesNotExists", (done) => {
             fetchMock.delete(`http://localhost:7890/api/stars/` + starIdToDelete, 404);
             client.deleteOnce(starIdToDelete).catch((result) => {
-                expect(result).eql("DELETE : Bad request, star id does not exists");
+                expect(result.statusCode).eql(404);
+                expect(result.message).eql("Bad request, star id does not exists");
                 done();
             })
         })
         it("test / deleteOnceByBadArguments", (done) => {
             fetchMock.delete(`http://localhost:7890/api/stars/` + starIdToDelete, 400);
             client.deleteOnce(starIdToDelete).catch((result) => {
-                expect(result).eql("DELETE : Bad request, please verify attributes and id of star");
+                expect(result.statusCode).eql(400);
+                expect(result.message).eql("Bad request, please verify attributes and id of star");
                 done();
             })
         })
@@ -147,7 +151,8 @@ describe('Test API', () => {
             starToChange.name = "starName";
             fetchMock.put(`http://localhost:7890/api/stars/` + starToChange.id, 404);
             client.put(starToChange).catch((result) => {
-                expect(result).eql("PUT : Bad request, id star does not exists");
+                expect(result.statusCode).eql(404);
+                expect(result.message).eql("Bad request, id star does not exists");
                 done();
             })
         })
@@ -155,7 +160,8 @@ describe('Test API', () => {
             starToChange.name = "iAmNameStarButItDoesNotHaveId"
             fetchMock.put(`http://localhost:7890/api/stars/` + starToChange.id, 400);
             client.put(starToChange).catch((result) => {
-                expect(result).eql("PUT : Bad request, please verify attributes and id of star");
+                expect(result.statusCode).eql(400);
+                expect(result.message).eql("Bad request, please verify attributes and id of star");
                 done();
             })
         })
@@ -163,14 +169,16 @@ describe('Test API', () => {
             starToChange.id = "iAmAnIdWichExists"
             fetchMock.put(`http://localhost:7890/api/stars/` + starToChange.id, 400);
             client.put(starToChange).catch((result) => {
-                expect(result).eql("PUT : Bad request, please verify attributes and id of star");
+                expect(result.statusCode).eql(400);
+                expect(result.message).eql("Bad request, please verify attributes and id of star");
                 done();
             })
         })
         it("test / putWithoutStarAttributeAndWhitoutId", (done) => {
             fetchMock.put(`http://localhost:7890/api/stars/` + starToChange.id, 400);
             client.put(starToChange).catch((result) => {
-                expect(result).eql("PUT : Bad request, please verify attributes and id of star");
+                expect(result.statusCode).eql(400);
+                expect(result.message).eql("Bad request, please verify attributes and id of star");
                 done();
             })
         })

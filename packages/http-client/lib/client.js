@@ -1,4 +1,5 @@
 const star = require('./model/Star');
+const responseException = require('./exception/ResponseException');
 
 module.exports = function(host, port) {
     
@@ -20,7 +21,8 @@ module.exports = function(host, port) {
                         resolve(result.json());
                     }
                     else{
-                        resolve("GET : Bad request, id star does not exists");
+                        //reject("GET : Bad request, id star does not exists");
+                        reject(new responseException(result.status, "Bad request, id star does not exists"));
                     }
                 })
                 .catch(reject)
@@ -43,10 +45,7 @@ module.exports = function(host, port) {
                     resolve(response.json());
                 }
                 else{
-                    reject( {
-                        name:        "FailAddException",
-                        message:     "Bad request, fail to add star",
-                    });
+                    reject(new responseException(response.status, "Bad request, fail to add star"));
                 }
             })
             .catch(reject);
@@ -63,10 +62,10 @@ module.exports = function(host, port) {
                     resolve("DELETE : '" + id + "' has been deleted");
                 }
                 else if(result.status === 400){
-                    reject("DELETE : Bad request, please verify attributes and id of star");
+                    reject(new responseException(result.status, "Bad request, please verify attributes and id of star"));
                 }
                 else{ // 404
-                    reject("DELETE : Bad request, star id does not exists");
+                    reject(new responseException(result.status, "Bad request, star id does not exists"));
                 }
             })
             .catch(reject);
@@ -83,10 +82,10 @@ module.exports = function(host, port) {
                     resolve("PUT : '" + selectedStar.id + "' has been changed");
                 }
                 else if (result.status === 400){
-                    reject("PUT : Bad request, please verify attributes and id of star");
+                    reject(new responseException(result.status, "Bad request, please verify attributes and id of star"));
                 }
                 else{ // 404
-                    reject("PUT : Bad request, id star does not exists");
+                    reject(new responseException(result.status, "Bad request, id star does not exists"));
                 }
             })
         })
