@@ -47,6 +47,12 @@ services:
             - ./backend/:/var/www/app
         networks: 
             - main
+    frontend:
+        build: .dont_touch/docker/frontend
+        volumes: 
+            - ./frontend/:/var/www/app
+        networks: 
+            - main
     database:
         build: .dont_touch/docker/database
         environment: 
