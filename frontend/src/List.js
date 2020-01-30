@@ -13,10 +13,11 @@ export default class List extends React.Component {
     render() {
       return (
         <div>
-          <h1>List</h1>
+          <h1>List of stars</h1>
+          <h0>UUID - Name - Galaxy - Distance</h0>
           <ul>
             { this.props.list.map(function(element, index) {
-              return <li key={ index }>{ element }</li>
+              return <li key={ index }>{ element.id } - { element.name } - { element.galaxy } - { element.distance } al</li>
             })}
           </ul>
           <Link to="/add">Add</Link>

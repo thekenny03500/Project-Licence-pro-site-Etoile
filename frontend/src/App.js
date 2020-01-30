@@ -22,6 +22,21 @@ export default class App extends Component  {
         this.submit = this.submit.bind(this)
     }
 
+    componentDidMount() {
+        fetch(`http://localhost:5080/api/stars`)
+            .then((response) => {
+                console.log("YEESS");
+                response.json().then((stars)=>{
+                    console.log(stars);
+                    this.setState((prevState, props) => {
+                        prevState.list = stars;
+                        return prevState;
+                    });
+                });
+            })
+            .catch(console.log("ERROR"));
+    }
+
     submit(event) {
         const data = new FormData(event.target);
         event.preventDefault();

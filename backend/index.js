@@ -7,7 +7,6 @@ const errorPerso = require('./Model/errorPerso');
 const { Pool } = require('pg');
 const validator = require('validator');
 const OpenApiValidator = require('express-openapi-validator').OpenApiValidator;
-//TODO express-openapi-validator MIDDELWARE
 
 const app = express();
 const poolLogin = {
@@ -22,7 +21,18 @@ const poolLogin = {
 // ********** //
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+/* TODO OpenApiValidator
+app.use(express.static(path.join(__dirname, 'public')));
+const spec = path.join(__dirname, 'spec.json');
+app.use('http://spec:8080/spec/', express.static(spec));
+
+new OpenApiValidator({
+  apiSpec: './spec.json',
+  validateResponses: true
+}).install(app);
+*/
 
 // ***************************** //
 // Functions de gestion d'erreur //
@@ -47,8 +57,6 @@ function errorHandler(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send("Internal serveur error");
 }
-
-
 
 // ************ //
 // getAll Stars //
