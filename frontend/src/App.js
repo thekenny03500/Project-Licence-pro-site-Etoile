@@ -30,8 +30,7 @@ export default class App extends Component  {
         fetch(`http://localhost:5080/api/stars`)
             .then((response) => {
                 response.json().then((stars)=>{
-                    console.log(stars);
-                    this.setState((prevState, props) => {
+                    this.setState((prevState) => {
                         prevState.list = stars;
                         return prevState;
                     });
@@ -53,9 +52,8 @@ export default class App extends Component  {
             body: JSON.stringify(newStar)
         }).then((response) => {
             response.json().then((star)=>{
-                    console.log(star);
                     history.push("/");
-                    this.setState((prevState, props) => {
+                    this.setState((prevState) => {
                         prevState.list = [...prevState.list,star]
                         return prevState;
                     });
@@ -75,13 +73,12 @@ export default class App extends Component  {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(aStar)
-        }).then((response) => {
-            console.log(aStar);
-            this.setState((prevState, props) => {
+        }).then(() => {
+            history.push("/");
+            this.setState((prevState) => {
                 Object.assign(prevState.list.filter(star => star.id == idStar)[0],aStar);
                 return prevState;
             });
-            history.push("/");
         }).catch((e)=> console.error(e));
     }
 
@@ -89,8 +86,8 @@ export default class App extends Component  {
         event.preventDefault();
         fetch(`http://localhost:5080/api/stars/`+id,{
            method: 'delete',
-        }).then((response) => {
-            this.setState((prevState, props) => {
+        }).then(() => {
+            this.setState((prevState) => {
                     prevState.list = prevState.list.filter(star => star.id != id );
                     return prevState;
             });
