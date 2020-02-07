@@ -40,46 +40,63 @@ export default class App extends Component  {
     }
 
     add(event) {
-        const data = new FormData(event.target);
-        event.preventDefault();
-        let newStar = new Star(data.get("name"),data.get("galaxy"),data.get("distance"));
-        fetch(`http://localhost:5080/api/stars`,{
-           method: 'post',
-           headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newStar)
-        }).then((response) => {
-            response.json().then((star)=>{
-                    history.push("/");
-                    this.setState((prevState) => {
-                        prevState.list = [...prevState.list,star]
-                        return prevState;
-                    });
-                });
-        }).catch((e)=> console.error(e));
+        return new Promise((resolve, reject) =>{
+            const data = new FormData(event.target);
+            event.preventDefault();
+            let newStar = new Star(data.get("name"),data.get("galaxy"),data.get("distance"));
+            fetch(`http://localhost:5080/api/stars`,{
+               method: 'post',
+               headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newStar)
+            }).then((response) => {
+                if(response.status >= 200 && response.status <400)
+                {
+                    response.json().then((star)=>{
+                            this.setState((prevState) => {
+                                prevState.list = [...prevState.list,star]
+                                return prevState;
+                            });
+                            resolve();
+                        });
+                }
+                else
+                {
+                    response.json().then((error)=>reject(error));
+                }
+            }).catch((e)=> reject("error"));
+        });
     }
 
-    edit(event) {
-        const data = new FormData(event.target);
-        event.preventDefault();
-        let idStar = data.get("id");
-        let aStar = new Star(data.get("name"),data.get("galaxy"),data.get("distance"));
-        fetch(`http://localhost:5080/api/stars/`+idStar,{
-           method: 'put',
-           headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(aStar)
-        }).then(() => {
-            history.push("/");
-            this.setState((prevState) => {
-                Object.assign(prevState.list.filter(star => star.id == idStar)[0],aStar);
-                return prevState;
-            });
-        }).catch((e)=> console.error(e));
+    edit(event,id) {
+        return new Promise((resolve, reject) =>{
+            const data = new FormData(event.target);
+            event.preventDefault();
+            let idStar = id;
+            let aStar = new Star(data.get("name"),data.get("galaxy"),data.get("distance"));
+            fetch(`http://localhost:5080/api/stars/`+idStar,{
+               method: 'put',
+               headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(aStar)
+            }).then((response) => {
+                if(response.status >= 200 && response.status <400)
+                {
+                    this.setState((prevState) => {
+                        Object.assign(prevState.list.filter(star => star.id == idStar)[0],aStar);
+                        return prevState;
+                    });
+                }
+                else
+                {
+                    response.json().then((error)=>reject(error));
+                }
+            }).catch((e)=> console.error(e));
+        });
     }
 
     delete(event,id) {
@@ -100,7 +117,7 @@ export default class App extends Component  {
             <Router history={history}>
                 <Switch>
                     <Route exact path="/add">
-                        <EditStar submit={this.add} />
+                        <EditStar history={history} submit={this.add} />
                     </Route>
                     <Route path="/edit/:id" >
                         <EditStar history={history} submit={this.edit} />

@@ -38,19 +38,13 @@ new OpenApiValidator({
 // Functions de gestion d'erreur //
 // ***************************** //
 function clientErrorHandler(err, req, res, next) {
-    switch(err.code)
+    if(err.code<500)
     {
-        case 404:
-            res.status(404).send(err.stack?err.stack:"Not found!");
-            break;
-        case 403:
-            res.status(403).send(err.stack?err.stack:"Forbidden!");
-            break;
-        case 400:
-            res.status(400).send(err.stack?err.stack:"Bad request!");
-            break;
-        default:
-            next(err);
+        res.status(err.code).send(err);
+    }
+    else
+    {
+        next(err);
     }
 }
 function errorHandler(err, req, res, next) {
@@ -132,8 +126,8 @@ app.get("/api/stars/:id", (req, res, next) => {
 app.post("/api/stars", (req, res, next) => {
     let newStar = req.body;
     if(newStar
-    && newStar.name
-    && newStar.galaxy
+    && (newStar.name && !validator.isEmpty(newStar.name.trim()))
+    && (newStar.galaxy && !validator.isEmpty(newStar.galaxy.trim()))
     && validator.isFloat(newStar.distance))
     {
         try
@@ -213,9 +207,14 @@ app.delete("/api/stars/:id",(req,res,next)=>{
 // Edit a star in database
 app.put("/api/stars/:id",(req,res,next)=>{
     let newStar = req.body;
+    let haveName =(newStar.name && !validator.isEmpty(newStar.name.trim()));
+    let haveGalaxy = (newStar.galaxy && !validator.isEmpty(newStar.galaxy.trim()));
+    let haveDistance = validator.isFloat(newStar.distance);
     if(newStar
     && validator.isUUID(req.params.id)
-    && (newStar.name || newStar.galaxy || validator.isFloat(newStar.distance)))
+    && haveName
+    && haveGalaxy
+    && haveDistance)
     {
         try
         {
@@ -223,31 +222,9 @@ app.put("/api/stars/:id",(req,res,next)=>{
 
             // Create query
             const query = {
-                text: "UPDATE stars SET ",
-                values: [req.params.id]
+                text: "UPDATE stars SET name=$1, galaxy=$2, distance=$3 WHERE id=$4;",
+                values: [newStar.name,newStar.galaxy,newStar.distance,req.params.id]
             };
-
-            let nbParamQuery = query.values.length;
-
-            if(newStar.name)
-            {
-                query.text += "name=$"+(++nbParamQuery);
-                query.values.push(newStar.name);
-            }
-
-            if(newStar.galaxy)
-            {
-                query.text += (nbParamQuery >1 ? ",":"")+"galaxy=$"+(++nbParamQuery);
-                query.values.push(newStar.galaxy);
-            }
-
-            if(newStar.distance)
-            {
-                query.text += (nbParamQuery >1 ? ",":"")+"distance=$"+(++nbParamQuery);
-                query.values.push(newStar.distance);
-            }
-
-            query.text += " WHERE id=$1;";
 
             pool.query(query)
                 .then(result => {
