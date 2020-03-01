@@ -9,6 +9,7 @@
         "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
         "@babel/preset-env": "^7.2.3",
         "@babel/preset-react": "^7.0.0",
+        "antd": "^3.26.8",
         "babel-loader": "^8.0.5",
         "babel-plugin-emotion": "^10.0.27",
         "file-loader": "^5.0.2",
@@ -21,7 +22,9 @@
         "url-loader": "^2.2.0",
         "webpack": "^4.41.2",
         "webpack-cli": "^3.2.1",
-        "webpack-dev-server": "^3.9.0"
+        "webpack-dev-server": "^3.9.0",
+        "less-loader": "5.0.0",
+        "css-loader": "3.4.2"
     },
     "peerDependencies": {}
 }

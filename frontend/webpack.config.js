@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!raw-loader'
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.svg$/,
@@ -48,16 +48,9 @@ module.exports = {
         loader: 'url-loader?mimetype=image/gif'
       },
       {
-        test: /\.json$/i,
-        use: [
-          {
-            loader: 'raw-loader',
-            options: {
-              esModule: false,
-            },
-          },
-        ],
-      },
+        test: /\.less$/,
+        use: ['style-loader','css-loader',"less-loader"]
+      }
     ]
   },
   devServer: {

@@ -4,6 +4,9 @@ import {
     Link
   } from "react-router-dom";
 
+import { Typography, Button } from 'antd';
+const { Title, Text } = Typography;
+
 export default class InfoStar extends React.Component {
 
     constructor(props) {
@@ -15,12 +18,16 @@ export default class InfoStar extends React.Component {
     render() {
       return (
         <div>
-          <h1>Info star</h1>
-          <span>Id => {this.star.id}</span><br/>
-          <span>Name => {this.star.name}</span><br/>
-          <span>Galaxy => {this.star.galaxy}</span><br/>
-          <span>Distance => {this.star.distance} al</span><br/>
-          <Link to="/"><span>Back</span></Link> 
+          <Title>Info star</Title>
+          <Text strong>
+            <span>Id => {this.star.id}</span><br/>
+            <span>Name => {this.star.name}</span><br/>
+            <span>Galaxy => {this.star.galaxy}</span><br/>
+            <span>Distance => {this.star.distance} al</span><br/>
+          </Text>
+          <Button type="primary">
+            <Link to="/">Back</Link>
+          </Button>
         </div>
       );
     }

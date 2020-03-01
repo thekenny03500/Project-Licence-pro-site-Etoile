@@ -4,6 +4,15 @@ import {
     Link
   } from "react-router-dom";
 
+import { Menu, Icon } from 'antd';
+import { Typography, Button } from 'antd';
+
+import "antd/dist/antd.css";
+import './css/list.css';
+
+const { SubMenu } = Menu;
+const { Title, Text } = Typography;
+
 export default class List extends React.Component {
 
     constructor(props) {
@@ -14,20 +23,25 @@ export default class List extends React.Component {
       let mythis = this;
       return (
         <div>
-          <h1>List of stars</h1>
-          <span>Name - Galaxy</span>
+          <Title>List of stars</Title>
+          <Text strong>Name - Galaxy</Text>
           <ul>
             { mythis.props.list.map(function(element, index) {
-              return <li key={ index }><span>{ element.name } - { element.galaxy } - </span>                        
-                        <Link to={{ pathname: ("/info/"+element.id) , state: {star: element}}}><span>info</span></Link> 
-                        <span> - </span>
-                        <Link to={{ pathname: ("/edit/"+element.id) , state: {star: element}}}><span>edit</span></Link>
-                        <span> - </span>
-                        <a href="" onClick={(e) =>{mythis.props.delete(e,element.id);}}><span>supprimer</span></a>
+              
+              return  <li key={ index }><span >{ element.name } - { element.galaxy } - </span>
+                        <Menu style={{ width: 70 }}>
+                          <SubMenu key="sub4" title={<Icon type="setting"/>}>
+                            <Menu.Item key="9"><Link to={{ pathname: ("/info/"+element.id) , state: {star: element}}}><span>En savoir plus</span></Link></Menu.Item>
+                            <Menu.Item key="10"><Link to={{ pathname: ("/edit/"+element.id) , state: {star: element}}}><span>Modifier</span></Link></Menu.Item>
+                            <Menu.Item key="11"><a href="" onClick={(e) =>{mythis.props.delete(e,element.id);}}><span>Supprimer</span></a></Menu.Item>
+                          </SubMenu>
+                        </Menu>
                       </li>
             })}
           </ul>
-          <Link to="/add">Add</Link>
+          <Button type="primary">
+            <Link to="/add">Add</Link>
+          </Button>
         </div>
       );
     }

@@ -3,6 +3,9 @@ import {
     Link
   } from "react-router-dom";
 
+  import { Typography, Button } from 'antd';
+  const { Title, Text } = Typography;
+
 export default class EditStar extends React.Component {
 
     constructor(props) {
@@ -16,7 +19,7 @@ export default class EditStar extends React.Component {
     render() {
       return (
         <div>
-          <h1>{this.star?"Edit":"Add" } star</h1>
+          <Title>{this.star?"Edit":"Add" } star</Title>
           <form onSubmit={this.props.submit}>
               <input name="id" type="hidden" value={this.star?this.star.id:"" }/>
               <input name="name" type="text" placeholder="Enter star name" defaultValue={this.star?this.star.name:"" } />
@@ -24,7 +27,9 @@ export default class EditStar extends React.Component {
               <input name="distance" type="number" step="0.00001" placeholder ="Enter distance of this star" defaultValue={this.star?this.star.distance:"" }/>
               <button type="submit">Send</button>
           </form>
-          <Link to="/"><span>Back</span></Link> 
+          <Button type="primary">
+            <Link to="/">Back</Link>
+          </Button>
         </div>
       );
     }
