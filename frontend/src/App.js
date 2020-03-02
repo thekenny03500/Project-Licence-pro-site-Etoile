@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 
 
+import './css/global.css';
+
 import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();
@@ -44,6 +46,7 @@ export default class App extends Component  {
             const data = new FormData(event.target);
             event.preventDefault();
             let newStar = new Star(data.get("name"),data.get("galaxy"),data.get("distance"));
+            console.log(newStar);
             fetch(`http://localhost:5080/api/stars`,{
                method: 'post',
                headers: {
@@ -90,6 +93,7 @@ export default class App extends Component  {
                         Object.assign(prevState.list.filter(star => star.id == idStar)[0],aStar);
                         return prevState;
                     });
+                    resolve();
                 }
                 else
                 {
@@ -126,7 +130,7 @@ export default class App extends Component  {
                         <InfoStar history={history}/>
                     </Route>
                     <Route exact path="/">
-                        <List list={ this.state.list } delete={this.delete}/>
+                        <List list={ this.state.list } history={history} delete={this.delete}/>
                     </Route>
                 </Switch>
             </Router>

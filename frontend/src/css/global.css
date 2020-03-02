@@ -1,0 +1,41 @@
+/* Global */
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+}
+
+#root{
+    height: 100%;
+    background-color: #e2e2e2;
+}
+
+.list-group-item{
+    display: flex;
+}
+
+.Label{
+    padding: 7px;
+}
+
+.col{
+    align-self: center;
+}
+
+.Content{
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 10px;
+}
+
+.fromEditAdd{
+    padding: 20px;
+    margin: auto;
+}
+
+.fromEditAdd button{
+    width: 100%;
+}

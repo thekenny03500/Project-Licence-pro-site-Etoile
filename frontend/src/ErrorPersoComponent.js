@@ -3,6 +3,9 @@ import {
     Link
   } from "react-router-dom";
 
+
+import {Alert} from 'react-bootstrap'
+
 export default class ErrorPersoComponent extends React.Component {
 
     constructor(props) {
@@ -11,7 +14,10 @@ export default class ErrorPersoComponent extends React.Component {
 
     render() {
       return (
-            <h1>{this.props.error.code} -> {this.props.error.stack}</h1>
+        <Alert variant="danger">
+          <Alert.Heading>{this.props.error.code}</Alert.Heading>
+          <p>{this.props.error.stack}</p>
+        </Alert>
       );
     }
 }
