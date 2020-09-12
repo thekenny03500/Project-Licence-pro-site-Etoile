@@ -9,7 +9,7 @@
       "chai-fetch": "0.3.1",
       "mockttp": "0.19.2",
       "mocha": "6.2.2",
-      "node-fetch": "2.6.0",
+      "node-fetch": "2.6.1",
       "fetch-mock": "8.3.1"
     },
     "main": "./lib/client.js",
